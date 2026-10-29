@@ -1,0 +1,60 @@
+import { AchievementBadge } from '../types/game';
+
+export const ACHIEVEMENTS: AchievementBadge[] = [
+  {
+    id: 'badge_risk_detective',
+    title: 'Risk Dedektifi',
+    description: 'Mahalledeki zemin çatlakları, tıkalı ızgaralar ve riskli alanları erkenden tespit ettin.',
+    icon: 'Search',
+    category: 'Risk Farkındalığı',
+    unlocked: false,
+  },
+  {
+    id: 'badge_prep_master',
+    title: 'Hazırlık Ustası',
+    description: 'Afet çantanı hayati malzemelerle eksiksiz ve gereksiz ağırlıklardan arındırarak hazırladın.',
+    icon: 'ShieldCheck',
+    category: 'Afet Öncesi Hazırlık',
+    unlocked: false,
+  },
+  {
+    id: 'badge_route_planner',
+    title: 'Güvenli Rota Planlayıcısı',
+    description: 'Selde kapanan köprü yerine güvenliği doğrulanmış yüksek ana beton köprü rotasını tercih ettin.',
+    icon: 'Compass',
+    category: 'Güvenli Karar Verme',
+    unlocked: false,
+  },
+  {
+    id: 'badge_info_defender',
+    title: 'Doğru Bilgi Savunucusu',
+    description: 'MeteoUYARI renklerini doğru yorumladın ve sosyal medyadaki asılsız dedikoduları durdurdun.',
+    icon: 'Radio',
+    category: 'İletişim ve Koordinasyon',
+    unlocked: false,
+  },
+  {
+    id: 'badge_solidarity',
+    title: 'Dayanışma Elçisi',
+    description: 'Kriz anında kimseyi geride bırakmadan sağlık, bebek maması ve kronik ilaç ihtiyaçlarını koordine ettin.',
+    icon: 'HeartHandshake',
+    category: 'Kapsayıcı İhtiyaçlar',
+    unlocked: false,
+  },
+  {
+    id: 'badge_accessible',
+    title: 'Erişilebilir Mahalle Tasarımcısı',
+    description: 'Tekerlekli sandalye kullanan komşumuz için merdiven yerine engelsiz rampa güzergâhını seçtin.',
+    icon: 'Accessibility',
+    category: 'Erişilebilirlik',
+    unlocked: false,
+  },
+  {
+    id: 'badge_72_complete',
+    title: '72 Saatlik Görev Tamamlayıcısı',
+    description: 'Yamaçdere Mahallesinin tüm 9 bölümünü başarıyla tamamlayarak afet bilinci kazandın.',
+    icon: 'Award',
+    category: 'Genel Başarı',
+    unlocked: false,
+  },
+];

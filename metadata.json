@@ -1,0 +1,6 @@
+{
+  "name": "AFET 72 – Mahalleni Kurtar!",
+  "description": "3D izometrik afet yönetimi ve simülasyon oyunu. Sel ve heyelan risklerini tespit et, güvenli kararlar al, mahallenin 72 saatini planla.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,2408 @@
+# AFET 72 – MAHALLENİ KURTAR!
+
+Kapsamlı Oyun Tasarım ve Yazılım Geliştirme Dokümanı (GDD) — Sürüm 1.0
+
+Bu projeyi sıradan bir soru-cevap oyunu değil; oyuncunun aldığı kararların mahalledeki yaşamı değiştirdiği, üç boyutlu, senaryo tabanlı ve eğitsel bir afet yönetimi oyunu olarak tasarlamanı öneriyorum.
+
+Oyunun temel yaklaşımı şu olacak:
+
+Afetten önce yaptığın hazırlıklar, afet sırasında verebileceğin kararları; afet sırasında verdiğin kararlar ise sonraki 72 saatin nasıl geçeceğini belirleyecek.
+
+Tasarımı Türkiye Afet Risk Azaltma Planı, AFAD'ın sel ve heyelan rehberleri ve Meteoroloji Genel Müdürlüğünün uyarı sistemiyle uyumlu olacak şekilde kurguladım.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://afad.gov.tr\&sz=32)
+
+Türkiye Afet Risk Azaltma Planı (TARAP)+3
+
+
+
+Oyun türü
+
+3D Strateji + Simülasyon
+
+Hedef kitle
+
+11–18 yaş
+
+Ana hikâye
+
+9 bölüm
+
+Platform
+
+Web / Mobil / Çevrimdışı
+
+## 1. Oyunun dünyası ve görsel tasarımı
+
+[Low Poly Houses Mega Pack](https://images.openai.com/static-rsc-4/h7eIUd67rwBGj-6lqNJQo8qyJaxUPdLdnoHEce5ksEiqmcPIjjSkrpHblF6Kh9tLdeMCRc2xVCpGpsa2UvgPbJNtbARf92f8TXNx9a8mMuLOYBoQCAAHGVUZG6QOUiQA7RRDz0pYscCzjoJNvRxAK9uJfxOGVGUSRrmKy835lNw?purpose=inline)
+
+[POLY Soviet city](https://images.openai.com/static-rsc-4/Vls3PdtEzN4v-Y-yCxdsJVhf6s_Ohpa8SVuBgKCnrcpSB8qhMVy4m0PGNZ0RjLY-o2f8nv-Ygae9WKU1ghLs8MIu9ehvkmQcFpmuaTOV8OG7SjzenzZCd-VIVkWhND_Tp2dP5aUZL9newff7Jhcz33zh5_-YuiK_1YOKlwYFvd0?purpose=inline)
+
+[Floodland -  Keymailer](https://images.openai.com/static-rsc-4/M-xyxYJQGb4pnTVHvR6c-G82T-KbFBOyWLREhNnbjekHPYU2WjudHYdvyjRWUKm5EHvYZ8twy6miyMG8lBKmJFE-fab6n9Jd6Po8FxHC86gm-f9IdGKItpaDIYBdYJydhWqy_8JwXaElC0b_IRHo9i9ZcwDW0gvklAJaiQQhaHw?purpose=inline)
+
+11
+
+Yukarıdaki görseller yalnızca hedeflenen izometrik oyun estetiğine örnektir. Oyunun haritası, nesneleri ve arayüzü proje için özgün olarak üretilecektir.
+
+Oyuncunun karşısına Yamaçdere adında, Rize'nin coğrafyasından esinlenen ancak tamamen kurgusal bir mahalle çıkacak. Bu mahallede evler, okul, sağlık merkezi, dere, köprüler, yamaçlar, market, yollar ve güvenli toplanma alanları bulunacak.
+
+Mahalle başlangıçta canlı, hareketli ve huzurlu olacak. Zaman ilerledikçe yağmur yoğunlaşacak, dere yükselecek, bazı yollar kapanacak ve heyelan belirtileri ortaya çıkacak. Bunların hepsi oyuncunun önceki kararlarıyla ilişkilendirilecek.
+
+### Mahalle haritası — tasarım özellikleri
+
+| Özellik          | Tasarım kararı                                               |
+| ---------------- | ------------------------------------------------------------ |
+| Harita boyutu    | 40 × 30 kare                                                 |
+| Sanal alan       | Yaklaşık 800 × 600 metre                                     |
+| Görüntü          | İzometrik 3D, 45° kamera                                     |
+| Harita türü      | Kurgusal, bölgelere ayrılmış mahalle                         |
+| Nüfus            | 420 kurgusal sakin                                           |
+| Yerleşim         | 30 konut grubu, 1 okul, 1 sağlık merkezi, 2 market, 1 eczane |
+| Ulaşım           | Ana yollar, ara sokaklar, 2 köprü                            |
+| Afet riski       | Sel ve heyelan                                               |
+| Güvenli bölgeler | 2 senaryoya özel önceden doğrulanmış toplanma alanı          |
+
+Burada önemli bir oyun tasarımı kuralı var: Her yüksek nokta güvenli değildir. Örneğin yamaç üzerindeki bir bölge selden uzak olsa bile heyelan riski taşıyabilir. Oyuncu hem sel hem heyelan tehlikesini dikkate almak zorunda olacak.
+
+## 2. Oyuncunun görevi
+
+Oyuncu bir arama-kurtarma personeli olmayacak. Mahalle için hazırlanmış kurgusal bir Afet Hazırlık ve Karar Destek Ekibi içinde görev alacak.
+
+Bu ayrım önemli; çocukların tehlikeli alanlara girerek profesyonel kurtarma yapması özendirilmeyecek. Gerçek afetlerde yetkili ekiplerin yönlendirmesi esastır.
+
+Oyuncunun görevleri riskleri belirlemek, hazırlık yapmak, resmî uyarıları değerlendirmek, güvenli yolları seçmek, ihtiyaçları belirlemek, yetkili ekiplere bilgi iletmek ve toplum dayanışmasını desteklemek olacak.
+
+# 3. Tam oyun tasarım dokümanı
+
+Aşağıdaki doküman; oyun tasarımcısının, yazılım geliştiricisinin ve yapay zekâ destekli kodlama araçlarının kullanabileceği ayrıntıda hazırlanmıştır.
+
+# AFET 72 – MAHALLENİ KURTAR!
+
+## Oyun Tasarım ve Geliştirme Şartnamesi
+
+**Proje türü:** Toplumsal fayda odaklı eğitsel dijital oyun
+
+**Oyun modeli:** İzometrik 3D mahalle simülasyonu, strateji, karar verme, görev tamamlama ve risk yönetimi
+
+**Hedef kullanıcılar:** Ortaokul ve lise öğrencileri, öğretmenler, afet farkındalık eğitimi alan bireyler
+
+**Önerilen ilk platform:** HTML5 tabanlı web uygulaması
+
+**Çalışma modeli:** Tek oyunculu, çevrimdışı destekli, mobil uyumlu
+
+**Birincil afet türleri:** Sel ve heyelan
+
+**Gelecekteki genişleme:** Deprem, orman yangını ve diğer afet türleri
+
+**Oyun süresi:** Ana hikâye için yaklaşık 60–90 dakika. Bölümler bağımsız şekilde de oynanabilecek.
+
+---
+
+# BÖLÜM A — PROJENİN AMACI
+
+## A1. Çözülecek problem
+
+Afetlerin etkileri yalnızca doğal olayların büyüklüğüne bağlı değildir. Yetersiz hazırlık, tehlikeli davranışlar, yanlış bilgi, erişilebilir olmayan tahliye planları ve eksik koordinasyon da riskleri artırabilir.
+
+Geleneksel afet farkındalık etkinliklerinin bir kısmı bilgiyi anlatmakta, ancak öğrencinin karmaşık durumlarda karar verme davranışını uygulamalı olarak ölçmemektedir.
+
+Bu proje, öğrenciye güvenli bir sanal ortamda karar verme ve kararlarının sonuçlarını değerlendirme fırsatı sunacaktır.
+
+## A2. Çözüm yaklaşımı
+
+Oyuncu afetin gerçekleşmesini engelleyemez; ancak riskleri azaltabilecek hazırlıkları yapabilir.
+
+Örneğin:
+
+- Tehlike işaretleri erkenden tespit edilirse yetkili ekiplere bildirim yapılabilir.
+- Alternatif yollar önceden belirlenmişse kapalı yollar karşısında güvenli seçenekler değerlendirilebilir.
+- Afet çantaları önceden hazırlanmışsa temel ihtiyaçlar için hazırlık düzeyi artar.
+- Yanlış bilgiler doğrulanmadan paylaşılmazsa bilgi kirliliği azaltılabilir.
+- Erişilebilirlik ihtiyaçları dikkate alınmışsa daha kapsayıcı hazırlık planları oluşturulabilir.
+
+## A3. Temel tasarım ilkeleri
+
+1. Bilgi, oyuncuya uzun anlatımlarla değil, yapacağı işler aracılığıyla öğretilecek.
+2. Yanlış kararlar açıklanacak; oyuncu yalnızca puan kaybedip cezalandırılmayacak.
+3. Aynı görev birden fazla güvenli çözüm içerebilecek.
+4. Hızdan önce güvenlik ve doğru karar verme ödüllendirilecek.
+5. Her oyunun sonunda gerçek yaşamda uygulanabilecek bir hazırlık çıktısı üretilecek.
+6. Oyun gerçek afet tahmini, profesyonel risk analizi veya acil müdahale sistemi olarak sunulmayacak.
+7. Öğrencinin can güvenliğini tehlikeye atabilecek davranışlar oyun mekaniğiyle ödüllendirilmeyecek.
+
+---
+
+# BÖLÜM B — HİKÂYE VE OYUN EVRENİ
+
+## B1. Hikâyenin başlangıcı
+
+Oyuncu Yamaçdere Mahallesi'nde yeni göreve başlayan bir hazırlık ekibi üyesidir.
+
+Mahalle, kırsal ve kentsel yerleşim özelliklerini bir arada taşımaktadır. Kuzeyde yamaçlar, mahalleyi ikiye ayıran bir dere, derenin üzerinde iki köprü ve farklı kotlardaki yerleşimler bulunmaktadır.
+
+İlk başta olağan bir gün yaşanmaktadır.
+
+Ancak meteorolojik uyarılar ve sahadaki gözlemler önlem alınması gerektiğine işaret etmektedir.
+
+Oyuncu başlangıçta şu mesajla karşılaşır:
+
+> Yamaçdere'de her şey sakin görünüyor. Ancak güvenli bir mahalle yalnızca bugün güvende olan değil, yarının risklerine hazırlıklı olan mahalledir. İlk görevin çevreni tanımak.
+
+İlerleyen bölümlerde hazırlık aşaması tamamlanır, yoğun yağış başlar ve oyun ilk 72 saatlik bir karar verme hikâyesine dönüşür.
+
+**72 saat adı**, oyunun afet sonrası kurgusal zaman çerçevesini belirtir; gerçek hayatta yardımın ancak 72 saat sonra geleceği veya herkesin 72 saat tek başına kalacağı anlamına gelmez.
+
+## B2. Hikâyenin temel karakterleri
+
+### Derya — Afet hazırlık danışmanı
+
+Oyuncunun rehberidir.
+
+Görevi: Kuralları açıklamak, yeni sistemleri tanıtmak, oyuncuya gerektiğinde ipucu vermek.
+
+Konuşması kısa, anlaşılır ve motive edici olmalıdır.
+
+### Mert — Mahalle gönüllüsü
+
+Mahalledeki hazırlık eksiklerini ve insanların ihtiyaçlarını oyuncuya aktarır.
+
+Profesyonel arama-kurtarma personeli değildir.
+
+### Elif Öğretmen — Okul koordinatörü
+
+Okuldaki öğrencilerin güvenliği, okulun hazırlık planı ve öğrencilerin aileleriyle iletişimi konusunda görevler sunar.
+
+### Deniz — Sağlık merkezi yetkilisi
+
+Sağlık merkezinin ihtiyaçlarını, erişilebilirlik sorunlarını ve sağlık hizmetlerine ulaşım konularını aktarır.
+
+### Aylin — Yerel yönetim temsilcisi
+
+Yetkili ekiplerin duyurularını ve mahalle düzeyindeki koordinasyon taleplerini oyuncuya ulaştırır.
+
+### Mahalle sakinleri
+
+Farklı yaşlardan, farklı hareketlilik ve iletişim ihtiyaçlarına sahip kurgusal insan gruplarıdır.
+
+Her bir kişi için gelişmiş bir yapay zekâ üretmek gerekmez. Birinci sürümde davranışları önceden tanımlanmış olaylar ve durumlar üzerinden yönetilebilir.
+
+## B3. Hikâye dallanmaları
+
+Oyuncunun kararlarına göre üç temel sonuç profili bulunur:
+
+**Hazırlıklı Mahalle:** Risklerin büyük bölümü önceden belirlenmiş, kararlar güvenli şekilde verilmiş, ihtiyaçlar planlanmıştır.
+
+**Gelişen Mahalle:** Bazı hazırlıklar eksik kalmıştır ancak oyuncu kararlarını düzelterek daha iyi bir sonuca ulaşmıştır.
+
+**Yeniden Planlayan Mahalle:** Oyuncu kritik konularda eksikler yaşamıştır. Oyun bunları açıklayarak yeniden deneme fırsatı verir.
+
+Sonuçlar dramatik ölüm sahneleri veya felaket görüntüleri üzerinden değil, mahalle hazırlık durumu, erişilebilirlik, ihtiyaç karşılanması ve güvenlik göstergeleri üzerinden anlatılır.
+
+---
+
+# BÖLÜM C — HARİTA TASARIMI
+
+## C1. Haritanın koordinat sistemi
+
+Harita 40 sütun ve 30 satırdan oluşur.
+
+Koordinatlar:
+
+- X: 0–39
+- Y: 0–29
+
+Her kare, sanal ölçekte yaklaşık 20 × 20 metrelik alanı temsil eder.
+
+Bu ölçüler gerçek dünyaya ait mühendislik veya coğrafi analiz verisi değildir. Oyun yerleşimi için kullanılacaktır.
+
+## C2. Harita bölgeleri
+
+**Bölge 1 — Kuzey Yamaçları**
+
+Haritanın kuzey kısmında yer alır.
+
+- Eğimli arazi
+- Ağaçlık alan
+- İstinat duvarları
+- Yamaç kenarında evler
+- Heyelan gözlem noktaları
+- Yol ve zemin çatlaklarının görülebileceği alanlar
+
+**Bölge 2 — Dere Koridoru**
+
+Haritanın orta kısmından geçen dereyi ve yakın çevresini kapsar.
+
+- Dere yatağı
+- İki köprü
+- Dereye yakın yollar
+- Drenaj bağlantıları
+- Su seviyesi görsel göstergeleri
+- Risk nedeniyle kapanabilecek bağlantılar
+
+**Bölge 3 — Mahalle Merkezi**
+
+- Okul
+- Mahalle meydanı
+- Market
+- Eczane
+- Konut grupları
+- Bilgilendirme panosu
+- Ana yol bağlantıları
+
+**Bölge 4 — Batı Güvenli Alanı**
+
+Senaryonun başlangıcında ilgili risklerin dışında kaldığı varsayılan, kurgusal ve önceden doğrulanmış toplanma alanıdır.
+
+**Bölge 5 — Doğu Güvenli Alanı**
+
+Mahallenin diğer tarafında bulunan, erişilebilir bağlantıları önceden değerlendirilmiş ikinci toplanma alanıdır.
+
+Toplanma alanlarının kullanılabilirliği olayların gelişimine göre yeniden değerlendirilecektir.
+
+## C3. Harita üzerindeki nesneler
+
+Her nesnenin aşağıdaki bilgileri bulunmalıdır:
+
+- Benzersiz kimlik
+- Nesne adı
+- Tür
+- X/Y konumu
+- Görsel model
+- Etkileşim durumu
+- Risk durumu
+- Üzerine tıklandığında açılacak bilgi paneli
+- Görevlerle ilişkisi
+- Olası animasyonları
+
+Örnek nesne türleri:
+
+| Nesne          | Tıklanınca açılacak işlem                        |
+| -------------- | ------------------------------------------------ |
+| Konut          | Hazırlık ve risk bilgilerini görüntüle           |
+| Okul           | Okul güvenlik planını incele                     |
+| Köprü          | Yol ve geçiş durumunu öğren                      |
+| Dere           | Mevcut senaryo risk seviyesini gör               |
+| Yamaç          | Heyelan belirtilerini incele                     |
+| Market         | Temel ihtiyaç envanterini incele                 |
+| Sağlık merkezi | Erişim ve ihtiyaç bilgilerini gör                |
+| Toplanma alanı | Güvenli erişim durumunu değerlendir              |
+| Duyuru panosu  | Resmî uyarıları görüntüle                        |
+| Yol            | Açık, kapalı veya inceleme bekliyor durumunu gör |
+
+## C4. Harita durumları
+
+Harita dört temel çevresel duruma sahip olmalı:
+
+1. Normal gün
+2. Hazırlık ve meteorolojik uyarı
+3. Yoğun yağış ve aktif tehlike
+4. Afet sonrası güvenli toparlanma
+
+Bu durumlarla birlikte aydınlatma, yağmur, su animasyonu, sesler ve harita üzerindeki olay simgeleri değişecektir.
+
+Haritanın temeli aynı kalmalıdır. Böylece oyuncu kararlarının aynı mahalleyi nasıl etkilediğini anlayabilir.
+
+---
+
+# BÖLÜM D — ANA OYNANIŞ
+
+## D1. Temel oyun döngüsü
+
+Oyuncu şu döngüyle ilerleyecektir:
+
+**Durumu incele → Bilgiyi değerlendir → Karar ver → Sonucu gör → Açıklamayı oku → Yeni duruma uyum sağla.**
+
+Oyunda beş temel etkileşim kullanılacak:
+
+1. Haritadaki nesnelere tıklama.
+2. Kartlar arasından karar seçme.
+3. Sürükle-bırak ile malzeme ve kaynak eşleştirme.
+4. Güvenli yolları harita üzerinde değerlendirme.
+5. İhtiyaç, uyarı ve görevleri yönetim panelinden izleme.
+
+## D2. Kamera kontrolü
+
+Masaüstü:
+
+- Sol tık: Nesne seçimi
+- Sol tık sürükleme: Haritayı kaydırma
+- Fare tekerleği: Yakınlaştırma
+- Sağ tık veya özel kontrol: Kamerayı döndürme
+- ESC: Açık paneli kapatma
+- Boşluk: İzin verilen aşamalarda simülasyonu duraklatma
+
+Mobil:
+
+- Tek dokunuş: Nesne seçimi
+- Tek parmakla sürükleme: Kaydırma
+- İki parmakla yakınlaştırma: Zoom
+- Ekran butonları: Kamera dönüşü
+
+Kamera görüşü hiçbir zaman oyuncunun ne yapması gerektiğini anlamasını engellememelidir.
+
+## D3. Zaman sistemi
+
+Oyun gerçek zamanlı ve kesintisiz 72 saat sürmeyecek.
+
+Bunun yerine olay tabanlı bir zaman sistemi kullanılacak.
+
+Zaman dilimleri:
+
+| Oyun zamanı  | İçerik                           |
+| ------------ | -------------------------------- |
+| T-48 saat    | Hazırlık ve mahalle analizi      |
+| T-12 saat    | Meteorolojik uyarılar            |
+| T-4 saat     | Önleyici kararlar                |
+| T+0–6 saat   | Akut tehlike ve güvenli kararlar |
+| T+6–24 saat  | İhtiyaç ve koordinasyon          |
+| T+24–48 saat | Kaynak planlama ve bilgilendirme |
+| T+48–72 saat | Toparlanma ve değerlendirme      |
+
+Oyun zamanı, görev tamamlamaya bağlı olarak ilerler.
+
+İlk sürümde gerçek süre baskısı kullanılmaması önerilir. Öğrenmenin amacı paniğe kapılmadan güvenli karar vermektir.
+
+---
+
+# BÖLÜM E — OYUNUN 9 ANA BÖLÜMÜ
+
+## BÖLÜM 0 — YAMAÇDERE'YE HOŞ GELDİN
+
+**Süre:** 5 dakika
+
+**Amaç:** Oyuncuya haritayı ve temel kontrolleri öğretmek.
+
+### Görev 0.1: Mahalleni keşfet
+
+Oyuncu haritada beş noktayı bulur:
+
+- Okul
+- Sağlık merkezi
+- Dere
+- Riskli yamaç
+- Toplanma alanı
+
+Her nokta seçildiğinde kısa açıklama açılır.
+
+### Görev 0.2: Risk sembollerini öğren
+
+Oyuncuya üç sembol gösterilir:
+
+- Bilgi
+- Dikkat gerektiren durum
+- Yetkililerce kapatılmış alan
+
+Oyuncu bunları örnek harita nesneleriyle eşleştirir.
+
+### Görev 0.3: Bilgi kaynağını öğren
+
+Oyuncu kurgusal oyun içi resmî duyuru ekranını açar.
+
+Oyunda gösterilen bildirimlerin gerçek zamanlı uyarılar değil, senaryo içeriği olduğu belirtilir.
+
+**Tamamlama koşulu:** Beş nesne keşfedilmiş, simgeler eşleştirilmiş ve duyuru paneli açılmış olmalı.
+
+---
+
+## BÖLÜM 1 — TEHLİKEYİ ÖNCEDEN GÖR
+
+**Süre:** 8 dakika
+
+**Temel problem:** Mahalledeki risklerin zamanında fark edilmemesi.
+
+### Olay
+
+Mahallede saha incelemesi yapılacaktır. Oyuncuya risk gözlemleri içeren bir harita verilir.
+
+### Görev 1.1: Risk noktalarını bul
+
+Haritada 10 etkileşim noktası bulunur.
+
+Örnek gözlemler:
+
+1. Yamaçta yeni oluşmuş çatlak
+2. Dere yatağına yakın yapı
+3. Tıkalı olduğu bildirilen yağmur suyu ızgarası
+4. Deforme olmuş istinat duvarı
+5. Eğilmiş ağaç ve direk
+6. Su birikmesi görülen alt geçit
+7. Güvenli tahliye bağlantısı olmayan çıkmaz sokak
+8. Eksik uyarı tabelası
+9. Normal durumdaki park bankı
+10. Normal durumdaki sağlam çit
+
+Oyuncu nesneleri seçer ve risk bildirimleri oluşturur.
+
+### Görev 1.2: Riski sınıflandır
+
+Her gözlem için üç seçenek vardır:
+
+- Takip edilmeli
+- Yetkili değerlendirmesi gerektirir
+- Bu senaryoda özel tehlike belirtisi değil
+
+Oyuncu kesin mühendislik teşhisi koymayacak; riskleri gözlemleyip uygun mercilere aktarmayı öğrenecek.
+
+### Görev 1.3: Öncelik belirle
+
+Oyuncu hazırlık ekibine iletilecek ilk üç bildirimi seçer.
+
+### Örnek karar
+
+**Durum:** Yamaçta yeni bir çatlak fark edildi.
+
+A) Yakından incelemek için çatlağa doğru git.
+
+B) Güvenli mesafede kal, durumu yetkili birimlere bildir.
+
+C) Önemseme; yağmur başlayınca tekrar bak.
+
+**Beklenen karar:** B.
+
+### Eğitim çıktısı
+
+Öğrenci, olası heyelan belirtilerini fark etmeyi ve tehlikeli alanlarda bireysel müdahale yerine yetkilileri bilgilendirmeyi öğrenir.
+
+### Oyun sonucu
+
+Doğru tespitler hazırlık durumunu iyileştirir; eksik kalan bilgiler sonraki bölümlerde ek değerlendirme gereksinimi doğurur.
+
+---
+
+## BÖLÜM 2 — MAHALLENİ HAZIRLA
+
+**Süre:** 10 dakika
+
+**Temel problem:** Afet hazırlığının ihmal edilmesi.
+
+Bu bölümde oyuncu sürükle-bırak, envanter yönetimi ve planlama yapacaktır.
+
+### Görev 2.1: Afet çantası hazırla
+
+Ekranda boş bir çanta ve seçilebilir malzemeler bulunur.
+
+Uygun malzeme örnekleri:
+
+- İçme suyu
+- Uzun süre dayanabilen yiyecekler
+- El feneri
+- Yedek pil
+- Düdük
+- Pilli radyo
+- İlk yardım malzemeleri
+- Gerekli kişisel ilaçlar
+- Hijyen malzemeleri
+- Önemli belge kopyaları
+- İhtiyaca uygun bebek veya engelli birey malzemeleri
+- Evcil hayvan için temel ihtiyaçlar
+
+Dikkat dağıtıcı nesneler:
+
+- Büyük ve taşınması zor dekoratif eşya
+- Gereksiz ağır elektronik cihaz
+- Hazırlık amacına hizmet etmeyen nesneler
+
+Öğrenci, doğru malzemeleri sürükleyerek çantasına bırakır.
+
+Çanta kapasitesi gerçek yaşam için evrensel bir ağırlık sınırı gibi gösterilmez; oyun içinde yalnızca önceliklendirme öğretmek amacıyla kullanılır.
+
+### Görev 2.2: Aile hazırlık planı
+
+Oyuncuya kurgusal bir aile senaryosu sunulur.
+
+Ailenin ihtiyaçları:
+
+- İletişim planı
+- Toplanma alanı bilgisi
+- Alternatif ulaşım seçeneği
+- Temel ihtiyaç çantası
+- Özel ihtiyaçların dikkate alınması
+
+Oyuncu beş hazırlık kartını uygun alanlara sürükler.
+
+### Görev 2.3: Okul hazırlığı
+
+Oyuncu Elif Öğretmen ile okul hazırlık kontrol listesini inceler.
+
+Seçimler:
+
+- Öğrenciler için bilgilendirme
+- Yetkili okul yönetimince belirlenen tahliye planının incelenmesi
+- Acil durum iletişim bilgilerinin güncel tutulması
+- Erişilebilirlik ihtiyaçlarının değerlendirilmesi
+- Güvenli davranış tatbikatları
+
+### Görev 2.4: Hazırlık kaynaklarını dağıt
+
+Oyuncuya kurgusal 100 hazırlık birimi verilir.
+
+Örnek yatırım seçenekleri:
+
+| Faaliyet                                   | Oyun birimi |
+| ------------------------------------------ | ----------- |
+| Bilgilendirme materyalleri                 | 10          |
+| Mahalle hazırlık eğitimi                   | 20          |
+| Temel ihtiyaç stoklarının planlanması      | 25          |
+| Erişilebilir iletişim desteği              | 15          |
+| Alternatif ulaşım planlarının hazırlanması | 20          |
+| Ek saha değerlendirmesi                    | 10          |
+
+Tüm seçenekler aynı turda gerçekleştirilebilecek şekilde tasarlanabilir. İleri seviyede kaynaklar sınırlanarak önceliklendirme sorusu oluşturulur.
+
+Bu birimler gerçek parasal maliyet değildir.
+
+### Bölüm sonu
+
+Mahallenin hazırlık göstergesi güncellenir. Bir sonraki bölümde bazı seçeneklerin etkisi ortaya çıkar.
+
+---
+
+## BÖLÜM 3 — UYARI GELDİ
+
+**Süre:** 7 dakika
+
+**Temel problem:** Resmî uyarıların yanlış anlaşılması ve bilgi kirliliği.
+
+### Olay
+
+Meteoroloji Genel Müdürlüğünün renkli uyarı sisteminden esinlenen kurgusal bir bildirim gelir.
+
+Senaryoda yoğun yağış konusunda turuncu uyarı gösterilir.
+
+### Görev 3.1: Uyarıyı anla
+
+Oyuncu renklerin ne anlama geldiğini öğrenir:
+
+- Yeşil: Uyarı gerektiren meteorolojik hadise tahmin edilmiyor.
+- Sarı: Potansiyel tehlike.
+- Turuncu: Tehlikeli hava koşulları.
+- Kırmızı: Çok tehlikeli hava koşulları.
+
+Bu renkler oyun içine yalnızca meteorolojik uyarı eğitiminde kullanılacak. Oyundaki tüm yerel tehlikeleri bu renklerle otomatik olarak tahmin eden bir sistem kurulmayacak.
+
+### Görev 3.2: Bilgi doğrulama
+
+Oyuncuya üç mesaj gösterilir.
+
+**Mesaj A:** Senaryoya ait, kaynağı ve saati belirtilen resmî uyarı.
+
+**Mesaj B:** Sosyal medyada dolaşan, kaynağı belirsiz ses kaydı.
+
+**Mesaj C:** Tarihi geçmiş bir haber ekran görüntüsü.
+
+Oyuncu hangi bilgilerin doğrulanması ve hangi kaynaktan hareket edilmesi gerektiğini belirler.
+
+### Görev 3.3: Mahalle bilgilendirmesi
+
+Oyuncu güvenilir açıklamalardan doğru olanları seçerek bir mahalle duyurusu hazırlar.
+
+Mesajda şu unsurlar yer almalıdır:
+
+- Olayın türü
+- Uyarının kaynağı
+- Güncellik durumu
+- Yetkili kurumların yönlendirmelerine uyulması
+- Doğrulanmamış bilgilerin paylaşılmaması
+
+### Bölüm sonu
+
+Doğru iletişim, mahallenin bilgiye erişim göstergesini artırır.
+
+---
+
+## BÖLÜM 4 — SU YÜKSELİYOR
+
+**Süre:** 10 dakika
+
+**Temel problem:** Sel sırasında yanlış güzergâh ve tehlikeli geçiş kararları.
+
+### Olay
+
+Yağış yoğunlaşmıştır. Oyundaki dere ve çevresindeki bazı bağlantılar riskli duruma gelmiştir.
+
+Haritada yağmur animasyonu başlar.
+
+Dere çevresindeki risk alanları belirginleşir.
+
+Yetkili ekiplerin kapattığı bir köprü gösterilir.
+
+### Görev 4.1: Yolu değerlendir
+
+Oyuncuya üç güzergâh gösterilir.
+
+**Yol A:** Kısa fakat sel riski nedeniyle kapatılmış köprüden geçiyor.
+
+**Yol B:** Daha uzun ancak senaryoda yetkililerce güvenli olduğu doğrulanmış güzergâh.
+
+**Yol C:** Dere kenarından geçiyor ve durumu henüz doğrulanmamış.
+
+Doğru seçim, senaryo koşullarında güvenli olarak doğrulanmış Yol B'dir.
+
+Yol B'nin kullanılabilirliği de değişirse oyuncu başka bir güvenli seçenek veya yetkili yönlendirmesi aramalıdır.
+
+### Görev 4.2: Tehlikeli davranışı önle
+
+Bir karakter şunu söyler:
+
+> Su çok derin görünmüyor. Karşıya yürüyerek geçebiliriz.
+
+Seçenekler:
+
+A) Suyun içinden yürüyerek geçmesini öner.
+
+B) Akıntılı sudan uzak durmasını ve güvenli yerde kalıp yetkili yönlendirmesini takip etmesini öner.
+
+C) Araçla geçmeyi denemesini öner.
+
+Beklenen cevap B'dir.
+
+### Görev 4.3: Köprü kapandı
+
+Haritada ilk kullanılan güzergâh devre dışı kalır.
+
+Oyuncu alternatif güvenli yolu bulur.
+
+Böylece rota planlamanın yalnızca en kısa yolu seçmek olmadığı öğretilir.
+
+### Görev 4.4: Mahalle ihtiyaçlarını izle
+
+Üç kurgusal bölge için ihtiyaç bildirimleri gelir.
+
+Oyuncu bildirimleri yetkili koordinasyon ekibine iletir ve durumu takip eder.
+
+Tehlikeli bölgelere şahsen girerek malzeme dağıtma mekaniği bulunmaz.
+
+### Bölüm sonu
+
+Başarının ölçütü hızlı hareket etmek değil, tehlikeli geçişlerden kaçınmak ve uygun bildirimleri yapmaktır.
+
+---
+
+## BÖLÜM 5 — YAMAÇ HAREKET EDİYOR
+
+**Süre:** 8 dakika
+
+**Temel problem:** Heyelan belirtilerinin fark edilmemesi veya tehlikeli şekilde araştırılması.
+
+### Olay
+
+Yoğun yağışın ardından bazı yamaç noktalarında yeni belirtiler gözlemlenmiştir.
+
+Haritada çatlak, eğilen direk ve zeminde değişim gibi görsel işaretler görülür.
+
+### Görev 5.1: Belirtileri tanı
+
+Oyuncu:
+
+- Yeni zemin çatlakları
+- Eğilen ağaç veya direkler
+- İstinat duvarlarında değişiklik
+- Yeni su çıkışları
+- Yapılardaki yeni deformasyonlar
+
+gibi belirtileri ayırt eder.
+
+### Görev 5.2: Güvenli karar ver
+
+Bir aile yamaç yakınındaki evinde yeni çatlak fark ettiğini bildirmektedir.
+
+Oyuncu kendi başına mühendislik incelemesi yapmayı seçemez.
+
+Doğru yaklaşım güvenli mesafeyi korumak, etkilenebilecek kişileri uyarmak ve yetkili kurumlara durumu bildirmektir.
+
+Tahliye ve hareket kararları senaryodaki yetkili uyarılarla ilişkilendirilir.
+
+### Görev 5.3: Rota yeniden planlama
+
+Oyunda daha önce kullanılan bir yol heyelan riski nedeniyle kapatılır.
+
+Oyuncu, iki farklı tehlikeyi aynı anda değerlendirir.
+
+- Selden uzaklık
+- Heyelan tehlikesinden uzaklık
+- Yolun doğrulanmış açık olması
+- Erişilebilirlik
+- Yetkili yönlendirmelerine uygunluk
+
+### Görev 5.4: Yanlış güven duygusu
+
+Oyuncuya şu mesaj gösterilir:
+
+> Yağmur durduğuna göre yamaçtaki tehlike de tamamen bitmiştir.
+
+Oyuncu bunun doğru olmadığını belirler. Riskin devam edebileceği ve resmî açıklamaların takip edilmesi gerektiği anlatılır.
+
+---
+
+## BÖLÜM 6 — BİRLİKTE GÜÇLÜYÜZ
+
+**Süre:** 10 dakika
+
+**Temel problem:** Koordinasyon ve kapsayıcı hazırlık eksikliği.
+
+### Olay
+
+Mahallede farklı ihtiyaç bildirimleri bulunmaktadır.
+
+### Görev 6.1: İhtiyaç eşleştirme
+
+Ekranda beş ihtiyaç kartı gösterilir.
+
+Örnekler:
+
+- İlaç temininde desteğe ihtiyaç duyan aile
+- Ulaşım desteği gerektiren birey
+- Bebek bakım malzemesi ihtiyacı
+- Güvenilir bilgiye erişemeyen kişi
+- Sağlık merkezi için yetkili lojistik desteği
+
+Oyuncu, her ihtiyacın hangi yetkili veya uygun destek kanalı üzerinden karşılanacağını belirler.
+
+### Görev 6.2: Destek kaynaklarını planla
+
+Oyuncuya üç kurgusal ekip tanıtılır.
+
+**Bilgilendirme ekibi:** Resmî bilgileri anlaşılır biçimde paylaşır.
+
+**Lojistik ekibi:** Yetkililer tarafından güvenli ve uygun görülen malzeme dağıtımını planlar.
+
+**Profesyonel müdahale ekibi:** Yetkili ve eğitimli personelden oluşur.
+
+Oyuncu, işi doğru ekiple eşleştirir.
+
+### Görev 6.3: Erişilebilir güzergâh
+
+Bir güzergâhta merdiven olduğu için hareket desteği kullanan kişiler açısından erişim sorunu vardır.
+
+Oyuncu, senaryoda doğrulanmış erişilebilir güzergâhı seçer.
+
+### Görev 6.4: Etik karar
+
+Oyuncu sınırlı kaynaklarla karşı karşıyadır.
+
+İhtiyaçlar aciliyet, güvenlik ve erişilebilirlik ölçütlerine göre değerlendirilir.
+
+Hiçbir grup kişisel özelliği nedeniyle değersizleştirilmez veya daha az yardım almayı hak ediyor gibi gösterilmez.
+
+---
+
+## BÖLÜM 7 — YANLIŞ BİLGİYLE MÜCADELE
+
+**Süre:** 7 dakika
+
+**Temel problem:** Afet sırasında yanlış bilgilerin hızla yayılması.
+
+### Olay
+
+Mahalle haberleşme ekranında çeşitli mesajlar görünür.
+
+### Görev 7.1: Kaynağı değerlendir
+
+Oyuncuya beş mesaj gösterilir:
+
+1. Kaynağı belirsiz görsel
+2. Tarihi geçmiş resmî açıklama
+3. Güncel ve kaynağı belirtilmiş resmî açıklama
+4. Başka bir bölgeden alınmış video
+5. Doğrulanmamış ses kaydı
+
+Oyuncu mesajları sınıflandırır:
+
+- Güncel ve doğrulanmış
+- Doğrulama gerekli
+- Yanıltıcı veya bağlam dışı
+
+### Görev 7.2: Sorumlu iletişim
+
+Oyuncu güvenli bir bilgilendirme metni hazırlar.
+
+Mesajın kaynak, tarih, konu ve gerektiğinde resmî yönlendirme bilgilerini içermesi beklenir.
+
+### Görev 7.3: İletişim kanalı seçimi
+
+Sesli duyuruları duyamayan veya dijital kanallara erişemeyen kişilerin de bilgiye ulaşabileceği alternatif yollar değerlendirilir.
+
+Bölümde doğru davranışlar, bilgiye erişim ve toplumsal güven göstergelerini iyileştirir.
+
+---
+
+## BÖLÜM 8 — 72 SAATİN SONUNDA
+
+**Süre:** 10 dakika
+
+**Temel problem:** Afet sonrasında hazırlıksız ve plansız hareket edilmesi.
+
+### Olay
+
+Oyunun kurgusal zaman çizelgesi 72 saatlik aşamanın sonuna gelmiştir.
+
+Oyuncu mahallenin durumunu değerlendirir.
+
+### Görev 8.1: İhtiyaç raporu
+
+Oyuncu şu alanları inceler:
+
+- Güvenli bölgelere erişim
+- Temel ihtiyaçların planlanması
+- İletişim durumu
+- Erişilebilirlik
+- Yetkili ekiplere iletilmiş bildirimler
+- Devam eden riskler
+
+### Görev 8.2: Dönüş kararları
+
+Bazı kurgusal sakinler hasar görmüş yapılara dönmek ister.
+
+Oyuncu, yetkili güvenlik değerlendirmesi ve açıklamaları olmadan hasarlı yapılara girilmemesi gerektiğini öğrenir.
+
+### Görev 8.3: Neleri farklı yapardın?
+
+Oyun üç soru sorar:
+
+1. Afet öncesinde hangi hazırlık en çok işine yaradı?
+2. Hangi kararını değiştirmek isterdin?
+3. Gerçek yaşamda uygulayabileceğin ilk hazırlık adımı nedir?
+
+Yanıtlar isteğe bağlı ve cihaz üzerinde saklanan yansıtma notları olabilir.
+
+### Görev 8.4: Gerçek hayata aktar
+
+Oyuncu kendi aile afet hazırlık kontrol listesini oluşturur.
+
+Bu işlem oyunun final görevidir.
+
+---
+
+# BÖLÜM F — GERÇEK HAYATA AKTARIM MODÜLÜ
+
+Oyunun en önemli toplumsal fayda bileşeni budur.
+
+Oyunu tamamlayan öğrenci, yalnızca sanal puan kazanmak yerine bir hazırlık listesi oluşturmalıdır.
+
+## F1. Kontrol listesi
+
+- Ailemle afet durumunda iletişim kurma yöntemlerimizi konuştum.
+- Resmî toplanma alanı bilgisine nasıl ulaşacağımı öğrendim.
+- Afet ve acil durum çantamızı kontrol ettim.
+- Özel ihtiyaçlarımızı değerlendirdim.
+- Evimizdeki olası riskleri ailemle konuştum.
+- Resmî afet uyarılarının takip edilebileceği kaynakları öğrendim.
+- Afet sırasında yanlış bilgileri paylaşmamam gerektiğini öğrendim.
+- Yetkili kurumlardan yardım isteme yöntemlerini öğrendim.
+
+Öğrenci isterse kontrol listesini PDF olarak indirebilir veya yazdırabilir.
+
+Gerçek ev adresi, aile bireylerinin isimleri veya sağlık bilgileri oyuna girilmek zorunda değildir.
+
+## F2. Gerçek yaşam görevi
+
+Öğrenciye şu mesaj gösterilir:
+
+> Oyundaki mahalleni daha güvenli hâle getirdin. Şimdi kendi yaşam alanında güvenli hazırlık yapmayı öğrenebilirsin. Bu kontrol listesini ailenle değerlendir.
+
+Kontrol listesi tamamlandığında bir oyun içi "Hazırlık Elçisi" rozeti verilebilir. Bu rozet profesyonel afet eğitimi veya resmî sertifika anlamına gelmez.
+
+---
+
+# BÖLÜM G — PUANLAMA SİSTEMİ
+
+## G1. Puan kategorileri
+
+Toplam başarı puanı 100 üzerinden hesaplanacaktır.
+
+| Kategori                   | Azami puan |
+| -------------------------- | ---------- |
+| Riskleri fark etme         | 20         |
+| Afet öncesi hazırlık       | 25         |
+| Güvenli karar verme        | 30         |
+| İletişim ve koordinasyon   | 15         |
+| Kapsayıcı ihtiyaç planlama | 10         |
+| **TOPLAM**                 | **100**    |
+
+## G2. Puan hesaplama
+
+Her kategori kendi içinde 0 ile 1 arasında normalize edilir.
+
+Örnek:
+
+- Risk farkındalığı başarısı: %80
+- Hazırlık başarısı: %90
+- Güvenli karar verme: %100
+- İletişim başarısı: %60
+- Kapsayıcılık: %80
+
+Toplam puan:
+
+20 × 0,80 + 25 × 0,90 + 30 × 1,00 + 15 × 0,60 + 10 × 0,80 = 85,5
+
+Ekranda 86/100 olarak gösterilebilir.
+
+Bu puan oyunun eğitim hedeflerine göre geliştirilen bir başarı göstergesidir; gerçek afetlerde hayatta kalma olasılığı değildir.
+
+## G3. Kritik güvenlik kararları
+
+Açıkça tehlikeli davranış içeren bir seçim yapıldığında oyun, oyuncuyu tehlikeli bir eylemi başarıyla gerçekleştirmiş gibi göstermeyecek.
+
+Bunun yerine:
+
+1. Simülasyon durdurulur.
+2. Seçimin güvenlik açısından neden uygun olmadığı açıklanır.
+3. İlgili güvenli davranış bilgisi gösterilir.
+4. Oyuncu aynı durumu tekrar değerlendirebilir.
+5. Deneme sayısı ve ilk deneme başarısı eğitim analitiğine kaydedilebilir.
+
+## G4. Başarı dereceleri
+
+| Puan   | Oyun içi derece         |
+| ------ | ----------------------- |
+| 0–49   | Hazırlık Geliştirme     |
+| 50–69  | Gelişen Farkındalık     |
+| 70–84  | Hazırlık Bilinci        |
+| 85–94  | Güvenli Karar Uzmanı    |
+| 95–100 | Mahalle Hazırlık Elçisi |
+
+Bu unvanlar yalnızca oyun içi başarı seviyeleridir.
+
+## G5. Rozet sistemi
+
+Rozetler:
+
+- Risk Dedektifi
+- Hazırlık Ustası
+- Güvenli Rota Planlayıcısı
+- Doğru Bilgi Savunucusu
+- Dayanışma Elçisi
+- Erişilebilir Mahalle Tasarımcısı
+- 72 Saatlik Görev Tamamlayıcısı
+
+Rozetler yalnızca toplam puana göre değil, ilgili görevin başarıyla tamamlanmasına göre verilir.
+
+---
+
+# BÖLÜM H — SİMÜLASYON MOTORU
+
+## H1. Simülasyonun çalışma şekli
+
+Birinci sürümde gerçek fiziksel afet tahmini yapılmayacak.
+
+Yağış, su yükselmesi, heyelan belirtileri ve yol kapanmaları önceden tasarlanmış senaryo kurallarıyla yönetilecek.
+
+Bu yaklaşım hem teknik olarak uygulanabilir hem de eğitim açısından daha kontrollüdür.
+
+## H2. Temel durum değişkenleri
+
+- simulationTime
+- currentPhase
+- rainfallLevel
+- riverCondition
+- floodRiskZones
+- slopeRiskZones
+- roadConditions
+- verifiedWarnings
+- preparationStatus
+- householdNeeds
+- availableResources
+- accessRoutes
+- completedTasks
+- decisionHistory
+- score
+- achievements
+
+## H3. Yağış seviyeleri
+
+Oyun içi görsel durumlar:
+
+0. Yağış yok
+1. Hafif yağış
+2. Orta yağış
+3. Şiddetli yağış
+4. Çok şiddetli yağış
+
+Bu seviyeler oyun efektleri ve önceden yazılmış olayları kontrol etmek için kullanılacaktır; meteorolojik ölçüm veya tahmin modeli olarak sunulmayacaktır.
+
+## H4. Risk bölgeleri
+
+Haritadaki her karenin durumu:
+
+- NORMAL
+- REVIEW_REQUIRED
+- HAZARD
+- BLOCKED
+- VERIFIED_SAFE_ROUTE
+
+olarak işaretlenebilir.
+
+Bir yol hem sel hem heyelan riski taşıyorsa iki ayrı tehlike etiketi saklanmalıdır.
+
+## H5. Riskli alan kuralları
+
+Örnek olay mantığı:
+
+- Senaryoda yoğun yağış olayı başlar.
+- Önceden belirlenen dere bölgesinin risk durumu değişir.
+- Yetkili kapatma olayı belirli köprüye uygulanır.
+- Köprü rota bulma sisteminden çıkarılır.
+- Alternatif güzergâhlar yeniden hesaplanır.
+- Öğrenci güvenli güzergâhı değerlendirir.
+
+Önemli: Oyun motoru yağış verisinden gerçek bir konutun veya yolun güvenli olduğunu hesapladığını iddia etmeyecek.
+
+## H6. Yol bulma sistemi
+
+Harita bir düğüm-bağlantı grafiğine dönüştürülecektir.
+
+Her bağlantı:
+
+- Başlangıç noktası
+- Bitiş noktası
+- Sanal mesafe
+- Açık/kapalı durumu
+- Tehlike durumu
+- Erişilebilirlik durumu
+- Yetkili doğrulama durumu
+
+bilgilerini taşır.
+
+A\* algoritması kullanılabilir.
+
+Ancak algoritma en kısa yolu doğrudan güvenli kabul etmeyecek.
+
+Öncelikle kapalı, tehlikeli veya güvenliği doğrulanmamış güzergâhlar elenir.
+
+Kalan güzergâhlar arasından uygun yol seçilir.
+
+Hiçbir uygun rota bulunmuyorsa oyun oyuncuyu riskli yola zorlamaz; yetkili yönlendirmesi ve güvenli yerde kalma seçeneğini sunar.
+
+## H7. Olay motoru
+
+Olası olaylar:
+
+- METEO_WARNING
+- RAIN_START
+- DRAINAGE_REPORT
+- RIVER_RISK_INCREASE
+- BRIDGE_CLOSED
+- LANDSLIDE_WARNING_SIGN
+- ROAD_RESTRICTED
+- COMMUNITY_NEED
+- FALSE_INFORMATION
+- OFFICIAL_UPDATE
+- SAFE_ROUTE_UPDATED
+- RECOVERY_REVIEW
+
+Her olayın:
+
+- Kimliği
+- Başlık
+- Açıklama
+- Tetiklenme koşulu
+- Etkilenen nesneler
+- Sunulacak kararlar
+- Güvenlik kuralları
+- Puan etkisi
+- Sonraki olay bağlantısı
+
+bulunmalıdır.
+
+## H8. Tekrarlanabilir senaryolar
+
+Aynı başlangıç koşulları için oyun aynı olayları üretebilmelidir.
+
+Bu nedenle senaryo kimliği ve gerekirse sabit rastgelelik tohumu kullanılacaktır.
+
+Böylece iki öğrencinin performansı aynı koşullarda karşılaştırılabilir.
+
+---
+
+# BÖLÜM I — KARAR MOTORU
+
+## I1. Karar türleri
+
+**Bilgi kararları:** Doğru bilgiyi seçme.
+
+**Gözlem kararları:** Bir belirtinin riskle ilişkisini değerlendirme.
+
+**Planlama kararları:** Kaynak ve hazırlıkları uygun biçimde düzenleme.
+
+**Güvenlik kararları:** Tehlikeli davranışlardan uzak durma.
+
+**Koordinasyon kararları:** Bildirimi doğru ekibe iletme.
+
+**Etik kararlar:** Kapsayıcılık ve ihtiyaç temelli yaklaşım.
+
+## I2. Karar kartı yapısı
+
+Her kart şunları içermelidir:
+
+- Başlık
+- Olay bağlamı
+- Görsel veya harita bağlantısı
+- En az iki seçenek
+- Seçeneklerin gerekçeleri
+- Kabul edilen güvenli seçenekler
+- Geri bildirim
+- Kaynak referansı
+- Sonraki görev
+
+## I3. Örnek olay verisi
+
+```
+{
+  "id": "FLOOD_BRIDGE_01",
+  "levelId": "LEVEL_4",
+  "title": "Köprüden Geçiş",
+  "description": "Köprü resmî olarak kapatıldı.",
+  "choices": [
+    {
+      "id": "A",
+      "text": "Köprüden yürüyerek geç.",
+      "safe": false
+    },
+    {
+      "id": "B",
+      "text": "Kapalı güzergâhı kullanma; doğrulanmış güvenli alternatifi değerlendir.",
+      "safe": true
+    },
+    {
+      "id": "C",
+      "text": "Araçla geçmeyi dene.",
+      "safe": false
+    }
+  ],
+  "acceptedChoices": ["B"],
+  "feedback": {
+    "success": "Kapalı veya su etkisindeki geçişlerden uzak durmak güvenli bir yaklaşımdır.",
+    "retry": "Sel sularında yürümek veya araç kullanmak ciddi tehlike oluşturabilir."
+  },
+  "sourceId": "AFAD_SEL_GUIDANCE"
+}
+```
+
+## I4. Geri bildirim kuralları
+
+Geri bildirim yalnızca "Doğru" veya "Yanlış" dememelidir.
+
+İyi bir geri bildirim örneği:
+
+> Köprü daha kısa bir yol sunuyor olabilir. Ancak senaryoda kapatılmış durumda. Bu nedenle geçişi denemek yerine doğrulanmış güvenli güzergâhın seçilmesi gerekir.
+
+## I5. İpucu sistemi
+
+Oyuncu üç seviyede ipucu alabilir.
+
+1. İlk ipucu: İlgili bilgiyi hatırlatır.
+2. İkinci ipucu: Tehlikenin türünü gösterir.
+3. Üçüncü ipucu: Kararı belirleyen temel güvenlik ilkesini açıklar.
+
+İpucu kullanımı öğrencinin oyunu tamamlamasını engellemez. Ancak öğretmen raporunda destekle tamamlama olarak gösterilebilir.
+
+---
+
+# BÖLÜM J — ARAYÜZ VE EKRANLAR
+
+## J1. Açılış ekranı
+
+Arka planda Yamaçdere'nin genel görünümü yer alır.
+
+Başlık:
+
+**AFET 72**
+
+Alt başlık:
+
+**Mahalleni Kurtar**
+
+Ana butonlar:
+
+- Oyuna Başla
+- Göreve Devam Et
+- Görevler
+- Öğretmen Modu
+- Ayarlar
+- Proje Hakkında
+
+Alt kısımda "Eğitsel simülasyondur; gerçek zamanlı afet uyarı sistemi değildir." açıklaması bulunur.
+
+## J2. Oyun başlangıç ekranı
+
+Oyuncu gerçek kimlik bilgisi vermeden bir takma ad seçebilir veya misafir olarak başlayabilir.
+
+Seçimler:
+
+- Rehberli Mod
+- Standart Mod
+- Uzman Mod
+
+Rehberli modda daha fazla açıklama ve daha az eşzamanlı görev gösterilir.
+
+## J3. Ana oyun ekranı
+
+Masaüstünde önerilen yerleşim:
+
+Üst çubuk:
+
+- Oyun logosu
+- Bölüm adı
+- Oyun zamanı
+- Hazırlık göstergesi
+- Ayarlar
+- Duraklat
+
+Sol panel:
+
+- Aktif görev
+- Alt hedefler
+- İlerleme
+- İpucu
+
+Orta bölüm:
+
+- İnteraktif 3D mahalle
+
+Sağ panel:
+
+- Seçili nesnenin bilgileri
+- Risk durumu
+- Uygun eylemler
+
+Alt panel:
+
+- Son bildirimler
+- Olay geçmişi
+- Kaynaklar
+- Harita katmanları
+
+## J4. Risk katmanları
+
+Oyuncu harita üzerinde farklı veri katmanlarını açabilir.
+
+- Genel görünüm
+- Sel tehlikesi
+- Heyelan belirtileri
+- Kapalı yollar
+- Güvenli güzergâhlar
+- İhtiyaç bildirimleri
+
+Katmanlar gerçek harita verisi değil, senaryo verileridir.
+
+## J5. Görev paneli
+
+Örnek:
+
+**GÖREV: Riskleri Belirle**
+
+İlerleme: 6/10
+
+Alt hedef:\
+"Mahallede tehlike belirtisi olabilecek noktaları incele."
+
+Butonlar:
+
+- Haritada Göster
+- İpucu
+- Görev Bilgisi
+
+## J6. Karar penceresi
+
+Büyük başlık, kısa olay açıklaması, üç seçenek ve seçim sonrası gerekçe bulunacak.
+
+Kararın yalnızca fareyle değil, klavyeyle de verilebilmesi sağlanacak.
+
+## J7. Bölüm sonu ekranı
+
+- Bölüm başarı puanı
+- Doğru güvenlik kararları
+- Destek alınan kararlar
+- Tamamlanan görevler
+- Öğrenilen üç temel bilgi
+- Tekrar deneme
+- Sonraki bölüme geç
+
+## J8. Final rapor ekranı
+
+Gösterilecek alanlar:
+
+- Toplam puan
+- Başarı rozetleri
+- Tamamlama durumu
+- Konu bazında yeterlilik
+- Geliştirme önerileri
+- Kişisel afet hazırlık kontrol listesi
+
+## J9. Mobil görünüm
+
+Mobilde harita ekranın çoğunu kaplamalı.
+
+Görev, nesne bilgisi ve bildirimler alttan açılan paneller hâlinde sunulmalıdır.
+
+Dar ekranlarda üç sütunlu masaüstü yerleşimi kullanılmamalıdır.
+
+---
+
+# BÖLÜM K — GÖRSEL TASARIM
+
+## K1. Sanat yönü
+
+Önerilen görsel stil:
+
+**Modern, izometrik, düşük poligonlu 3D şehir simülasyonu.**
+
+Temel özellikler:
+
+- Canlı ama aşırı parlak olmayan renkler
+- Yumuşak gölgeler
+- Temiz ve okunabilir nesneler
+- Gerçekçi olmayan ancak anlaşılır afet efektleri
+- Oyuncuyu korkutmayan görsel anlatım
+- Eğitsel bir oyuna yakışan sade kontrol panelleri
+
+## K2. Renk sistemi
+
+| Kullanım       | Renk    |
+| -------------- | ------- |
+| Ana koyu zemin | #0B1220 |
+| Panel zemini   | #1A2C46 |
+| Ana metin      | #F5F7FA |
+| İkincil metin  | #B8C6D9 |
+| Olumlu işlem   | #20B486 |
+| Uyarı          | #F2AE4E |
+| Tehlike        | #D95C57 |
+| Etkileşim      | #4BA3FF |
+
+Renkler nihai arayüzde erişilebilirlik açısından test edilecektir.
+
+Hiçbir kritik bilgi yalnızca renkle verilmeyecek. Simge ve metin de kullanılacak.
+
+## K3. Grafik dosyaları
+
+Hazırlanacak temel modeller:
+
+1. Kurgusal Karadeniz evi
+2. Modern apartman
+3. Okul
+4. Sağlık merkezi
+5. Market
+6. Eczane
+7. Köprü
+8. Dere
+9. Yol parçaları
+10. Yamaç
+11. Ağaç
+12. İstinat duvarı
+13. Yol tabelası
+14. Toplanma alanı işareti
+15. Afet çantası
+16. Radyo
+17. El feneri
+18. Görev kartı
+19. Uyarı simgesi
+20. Mahalle insan grupları
+
+Önerilen dosya biçimi:
+
+- 3D modeller: GLB/GLTF
+- Simgeler: SVG
+- Arayüz görselleri: SVG veya WebP
+- Doku: Optimize edilmiş WebP/PNG
+
+## K4. Animasyonlar
+
+- Kamera yakınlaşması
+- Nesne seçildiğinde vurgulama
+- Hafif ağaç hareketi
+- Yağmur
+- Dere yüzeyi hareketi
+- Risk işaretinin görünmesi
+- Köprü kapatma işareti
+- Yeni görev bildirimi
+- Başarı rozeti animasyonu
+- Bölüm geçişi
+
+Heyelan görüntüleri kontrollü olmalı; gerçekçi yaralanma veya ağır travmatik sahneler içermemelidir.
+
+## K5. Ses tasarımı
+
+- Açılış için kısa, özgün tema
+- Normal mahalle ortam sesi
+- Hafif yağmur
+- Şiddetli yağmur
+- Dere sesi
+- Görev bildirimi
+- Nesne seçme
+- Karar onayı
+- Bölüm başarısı
+- Final müziği
+
+Oyuncu sesi kapatabilmelidir.
+
+Sesli uyarıların tamamının görsel karşılığı bulunmalıdır.
+
+---
+
+# BÖLÜM L — ERİŞİLEBİLİRLİK
+
+Oyun aşağıdaki özelliklere sahip olmalıdır:
+
+1. Tam klavye desteği.
+2. Okunabilir metin ölçeklendirme.
+3. Yüksek kontrast seçeneği.
+4. Renk körlüğünden bağımsız bilgi sunumu.
+5. Seslerin kapatılabilmesi.
+6. Altyazı ve metin karşılıkları.
+7. Animasyon azaltma seçeneği.
+8. Düşük donanım modu.
+9. Büyük dokunmatik hedefler.
+10. 3D harita üzerinde seçilemeyen nesneler için alternatif görev listesi.
+
+**Önemli teknik karar:** Three.js içindeki 3D nesneler doğrudan ekran okuyucular tarafından her zaman anlamlı şekilde algılanamaz. Bu nedenle tüm kritik etkileşimler HTML tabanlı alternatif panel üzerinden de yapılabilmelidir.
+
+---
+
+# BÖLÜM M — TEKNİK MİMARİ
+
+## M1. Önerilen teknoloji
+
+**Frontend**
+
+- React
+- TypeScript
+- Vite
+- HTML5
+- CSS
+- Three.js
+
+**Durum yönetimi**
+
+- Zustand veya merkezi reducer mimarisi
+
+**Veri ve kayıt**
+
+- JSON senaryo dosyaları
+- IndexedDB
+- Basit ayarlar için localStorage
+
+**Test**
+
+- Vitest
+- Playwright
+
+**Dağıtım**
+
+- Vercel
+- Netlify
+- GitHub Pages
+
+**İsteğe bağlı sonraki sürüm**
+
+- PWA desteği
+- Yönetim paneli
+- Gönüllü öğretmen rapor paylaşımı
+- Dil desteği
+
+İlk sürüm için sunucu, kullanıcı hesabı, harici yapay zekâ servisi ve ücretli API zorunlu olmamalıdır.
+
+## M2. Proje klasörleri
+
+```
+afet72/
+├── public/
+│   ├── models/
+│   ├── textures/
+│   ├── sounds/
+│   ├── icons/
+│   └── scenarios/
+├── src/
+│   ├── app/
+│   ├── components/
+│   │   ├── hud/
+│   │   ├── dialogs/
+│   │   ├── missions/
+│   │   └── reports/
+│   ├── game/
+│   │   ├── scene/
+│   │   ├── camera/
+│   │   ├── map/
+│   │   ├── entities/
+│   │   ├── events/
+│   │   ├── routing/
+│   │   └── rules/
+│   ├── levels/
+│   ├── data/
+│   ├── services/
+│   ├── stores/
+│   ├── types/
+│   ├── utils/
+│   ├── styles/
+│   └── tests/
+├── index.html
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## M3. Oyun durum modeli
+
+```
+type GamePhase =
+  | "tutorial"
+  | "preparation"
+  | "warning"
+  | "active_event"
+  | "recovery"
+  | "completed";
+
+type RoadStatus =
+  | "open"
+  | "closed"
+  | "unknown";
+
+interface GameState {
+  version: number;
+  scenarioId: string;
+  levelId: string;
+  phase: GamePhase;
+  simulatedHour: number;
+  score: number;
+  completedMissionIds: string[];
+  decisionHistory: DecisionRecord[];
+  unlockedAchievementIds: string[];
+  resourceUnits: number;
+  roads: Record<string, RoadStatus>;
+  hazardZones: HazardZone[];
+  savedAt: string;
+}
+```
+
+Ek tip tanımları ayrı dosyalarda oluşturulacaktır.
+
+## M4. Görev veri yapısı
+
+Her görev, uygulama kodunu değiştirmeden JSON üzerinden tanımlanabilmelidir.
+
+Gerekli alanlar:
+
+- id
+- title
+- description
+- levelId
+- objectives
+- prerequisites
+- events
+- interactions
+- acceptedOutcomes
+- feedback
+- scoreCategory
+- maxPoints
+- nextMissionIds
+- sourceReferences
+
+Bu yapı, gelecekte deprem veya orman yangını senaryolarının aynı oyun motoruna eklenmesini kolaylaştırır.
+
+## M5. Harita veri modeli
+
+Her harita karesi:
+
+```
+interface MapTile {
+  x: number;
+  y: number;
+  terrain: string;
+  elevationBand: number;
+  waterZone: boolean;
+  slopeZone: boolean;
+  isRoad: boolean;
+  isAccessible: boolean;
+  scenarioTags: string[];
+}
+```
+
+Buradaki yükseklik ve bölge özellikleri kurgusal veri olacaktır.
+
+## M6. Nesne etkileşimi
+
+Oyuncu nesneye tıkladığında:
+
+1. Three.js Raycaster nesneyi belirler.
+2. Nesnenin kimliği alınır.
+3. Oyun durumundan nesne bilgileri okunur.
+4. İlgili React paneli açılır.
+5. Oyuncu bir işlem seçerse kural motoruna iletilir.
+6. Kural motoru işlemi doğrular.
+7. Durum güncellenir.
+8. Gerekirse animasyon ve geri bildirim gösterilir.
+9. Otomatik kayıt oluşturulur.
+
+## M7. Olay işleme akışı
+
+```
+Kullanıcı işlemi
+      ↓
+Olay / görev kontrolü
+      ↓
+Güvenlik kuralları
+      ↓
+Karar doğrulaması
+      ↓
+Durum güncellemesi
+      ↓
+Puan ve görev ilerlemesi
+      ↓
+Harita görsel güncellemesi
+      ↓
+Otomatik kayıt
+      ↓
+Sonraki olay
+```
+
+## M8. Kayıt sistemi
+
+Oyun aşağıdaki işlemleri desteklemelidir:
+
+- Yeni oyun
+- Kaydedilmiş oyuna devam
+- Mevcut görevi yeniden başlat
+- Bölümü tekrar oyna
+- Tüm ilerlemeyi sıfırla
+
+İlerleme, anonim biçimde tarayıcı üzerinde tutulabilir.
+
+Sürüm yükseltmelerinde eski kayıtların uyumluluğu kontrol edilmelidir.
+
+## M9. Performans hedefleri
+
+İlk sürüm için hedefler:
+
+- Orta düzey masaüstü bilgisayarda akıcı kullanım.
+- Yaygın mobil cihazlarda düşük grafik moduyla oynanabilme.
+- 3D model sayısının ve poligon miktarının sınırlandırılması.
+- Tekrarlanan nesnelerde instanced rendering kullanımı.
+- Görünmeyen nesnelerin gerektiğinde çizilmemesi.
+- Görsel ve seslerin sıkıştırılması.
+- Etkinlik dinleyicilerinin ve animasyonların doğru temizlenmesi.
+- Bellek tüketiminin uzun oyun oturumlarında izlenmesi.
+
+Hedef cihazlarda test yapılmadan kesin FPS veya yükleme süresi garantisi verilmemelidir.
+
+---
+
+# BÖLÜM N — YAPAY ZEKÂ KULLANIMI
+
+İlk sürümde yapay zekâ zorunlu değildir. Ancak sonraki sürüme üç kontrollü özellik eklenebilir.
+
+## N1. Açıklama asistanı
+
+Oyuncunun hatalı kararını anlaşılır şekilde açıklayan bir asistan.
+
+Örnek:
+
+> Bu yolu neden kullanmamalıyım?
+
+Yanıtlar onaylı bilgi havuzundan üretilir.
+
+Asistanın serbest biçimde yeni afet güvenliği talimatı üretmesine izin verilmez.
+
+## N2. Kişiselleştirilmiş görev önerisi
+
+Öğrencinin eksik kaldığı konuya göre yeni görev seçer.
+
+Örnek:
+
+- Sel güvenliği sorularında başarısızlık varsa ek sel senaryosu.
+- Bilgi doğrulama hataları varsa yeni haber analizi.
+- Erişilebilirlik konusu eksikse yeni planlama görevi.
+
+Bu özellik ilk sürümde yapay zekâ olmadan kural tabanlı yapılabilir.
+
+## N3. Öğretmen analiz asistanı
+
+Toplu ve anonim sınıf sonuçlarını açıklayabilir.
+
+Örneğin:
+
+> Sınıfın büyük bölümünün kapalı güzergâh senaryosunda ek desteğe ihtiyacı var.
+
+Gerçek öğrencilerin kişisel verileri açık uçlu yapay zekâ servislerine aktarılmamalıdır.
+
+---
+
+# BÖLÜM O — ÖĞRETMEN MODU
+
+## O1. Amaç
+
+Öğretmenin oyunu sınıf ortamında kullanabilmesi ve öğrenme çıktısını değerlendirebilmesi.
+
+## O2. Özellikler
+
+- İstenilen bölümü doğrudan başlatma.
+- Rehberli veya standart modu seçme.
+- Senaryoyu sıfırlama.
+- Görevlerin cevap/gerekçe anahtarını görüntüleme.
+- Hazırlık ön testi açma.
+- Son testi açma.
+- Anonim sonuçları görüntüleme.
+- CSV veya PDF raporu oluşturma.
+- Sınıf içi tartışma sorularını açma.
+
+## O3. Analiz ekranı
+
+Gösterilebilecek veriler:
+
+- Oyunu tamamlayan oturum sayısı
+- Ortalama konu puanı
+- En fazla hata yapılan görevler
+- Kullanılan ipuçları
+- Ortalama görev tamamlama süresi
+- Ön test ve son test puanları
+- Anonim başarı dağılımı
+
+Bu bölümün ilk sürümünde sınıf bazında merkezi sunucu şart değildir.
+
+## O4. Örnek öğretmen raporu
+
+Başlık: AFET 72 — Öğrenme Değerlendirme Raporu
+
+Alanlar:
+
+- Oturum tarihi
+- Oyun senaryosu
+- Oturum sayısı
+- Tamamlama oranı
+- Risk farkındalığı ortalaması
+- Güvenli karar verme ortalaması
+- Bilgi doğrulama ortalaması
+- Geliştirilmesi önerilen konular
+
+Rapor yalnızca gerçekten toplanan verilere dayanmalıdır.
+
+---
+
+# BÖLÜM P — ÖLÇME VE DEĞERLENDİRME
+
+## P1. Araştırma amacı
+
+Oyunun öğrencilerin afet bilgisi ve senaryo temelli güvenli karar verme performansı üzerindeki etkisini incelemek.
+
+## P2. Araştırma soruları
+
+1. Oyun öncesi ve sonrası afet bilgi puanları değişiyor mu?
+2. Öğrencilerin güvenli karar verme performansları gelişiyor mu?
+3. Yanlış bilgiye karşı değerlendirme becerilerinde değişim var mı?
+4. Öğrenciler afet hazırlık davranışı sergilemeye daha fazla yöneliyor mu?
+5. Oyun, farklı başarı seviyelerindeki öğrenciler için kullanılabilir mi?
+
+## P3. Önerilen araştırma modeli
+
+İmkân varsa karşılaştırma gruplu ön test–son test tasarımı.
+
+Örneğin:
+
+- Deney grubu: Oyun tabanlı eğitim.
+- Karşılaştırma grubu: Aynı öğrenme hedefleriyle geleneksel içerik.
+
+Karşılaştırma grubuna araştırma bittikten sonra oyuna erişim sunulabilir.
+
+Randomizasyon yapılabiliyorsa tercih edilmeli. Yapılamıyorsa grupların başlangıç farklılıkları raporlanmalıdır.
+
+## P4. Ön test ve son test
+
+Üç ölçüm alanı kullanılabilir.
+
+**Bilgi testi:** Afet hazırlığı, sel ve heyelan hakkında bilgi.
+
+**Karar testi:** Kısa senaryolarda güvenli seçeneği belirleme.
+
+**Hazırlık davranışı kontrolü:** Aileyle plan konuşma, çanta kontrol etme gibi isteğe bağlı gerçek yaşam görevleri.
+
+Bilgi, davranış niyeti ve gerçekleşmiş davranış farklı ölçütlerdir. Birbirinin yerine yorumlanmamalıdır.
+
+## P5. Örnek 10 soruluk ölçme havuzu
+
+**Soru 1:** Sel suyu ile kaplanmış bir yolu gördüğünde en uygun yaklaşım nedir?
+
+A) Suyun içinden yürümek\
+B) Güvenli yerde kalıp doğrulanmış yönlendirmeleri izlemek\
+C) Araçla hızla geçmek
+
+Cevap: B
+
+**Soru 2:** Meteorolojik turuncu uyarının genel anlamı nedir?
+
+A) Tehlike olmadığı\
+B) Hava koşullarının tehlikeli olduğu\
+C) Yalnızca sıcaklığın arttığı
+
+Cevap: B
+
+**Soru 3:** Bir yamaçta yeni çatlak fark edildiğinde ne yapılmalıdır?
+
+A) Çatlağa girerek inceleme yapmak\
+B) Görmezden gelmek\
+C) Güvenli mesafede kalıp yetkililere bildirmek
+
+Cevap: C
+
+**Soru 4:** Afet öncesinde ailenin toplanma alanına ilişkin ne yapması uygundur?
+
+A) Bilgiyi önceden öğrenmek ve planlamak\
+B) Afet gerçekleşince rastgele alan seçmek\
+C) Yalnızca sosyal medya yorumlarına bakmak
+
+Cevap: A
+
+**Soru 5:** Kaynağı belirsiz bir afet mesajıyla karşılaşıldığında ne yapılmalıdır?
+
+A) Hemen paylaşmak\
+B) Güncel resmî kaynaklardan doğrulamak\
+C) Mesajı daha korkutucu hâle getirmek
+
+Cevap: B
+
+**Soru 6:** Afet çantasında aşağıdakilerden hangisi temel hazırlık malzemesi olabilir?
+
+A) El feneri\
+B) Büyük dekoratif heykel\
+C) Gereksiz ağır eşya
+
+Cevap: A
+
+**Soru 7:** Yetkililerce kapatılmış bir köprü için en uygun karar hangisidir?
+
+A) Kestirme olduğu için kullanmak\
+B) Kapatma kararına uymak\
+C) Suyu test etmek için üzerinde yürümek
+
+Cevap: B
+
+**Soru 8:** Afet sonrası hasarlı binaya geri dönüşte hangi yaklaşım doğrudur?
+
+A) Eşya almak için hemen girmek\
+B) Başkaları girdiyse güvenli saymak\
+C) Yetkili güvenlik değerlendirmesi ve yönlendirmelerine uymak
+
+Cevap: C
+
+**Soru 9:** Aile afet hazırlık planında ne dikkate alınmalıdır?
+
+A) Yalnızca yetişkinler\
+B) Yalnızca araçlar\
+C) Aile bireylerinin farklı ihtiyaçları
+
+Cevap: C
+
+**Soru 10:** Bir afet senaryosunda güvenli güzergâh nasıl değerlendirilir?
+
+A) Yalnızca en kısa mesafeye göre\
+B) Güncel tehlike, kapatma, erişilebilirlik ve yetkili yönlendirmelerine göre\
+C) En çok kullanılan yola göre
+
+Cevap: B
+
+Sorular uzman incelemesinden sonra yaş grubuna göre düzenlenmeli. Ön test ile son test için eşdeğer alternatif formlar hazırlanması öğrenme ölçümünün güvenilirliğini artırabilir.
+
+## P6. Veri analizi
+
+Ön test ve son test puanları karşılaştırılır.
+
+Raporlanabilecek ölçütler:
+
+- Ortalama puan
+- Standart sapma
+- Puan değişimi
+- Uygun istatistiksel test sonuçları
+- Etki büyüklüğü
+- Güven aralıkları
+- Tamamlama oranı
+
+Anlamlı değişim görülse bile kontrolsüz bir çalışmada bunun yalnızca oyundan kaynaklandığı kesin olarak iddia edilmemelidir.
+
+## P7. Nitel değerlendirme
+
+Öğrencilere üç açık uçlu soru sorulabilir:
+
+1. Hangi görev sana yeni bir şey öğretti?
+2. En zorlandığın karar hangisiydi?
+3. Gerçek yaşamda hangi hazırlığı yapmayı düşünüyorsun?
+
+---
+
+# BÖLÜM Q — GÜVENLİK, ETİK VE GİZLİLİK
+
+## Q1. Güvenlik yaklaşımı
+
+Oyun bir afet eğitim simülasyonudur.
+
+- Gerçek zamanlı meteoroloji tahmini sunmaz.
+- Gerçek yapı güvenliği değerlendirmesi yapmaz.
+- Gerçek tahliye güzergâhı önermez.
+- Profesyonel arama-kurtarma eğitiminin yerine geçmez.
+- Resmî AFAD onayı alınmadıkça böyle bir onaya sahip olduğunu belirtmez.
+
+## Q2. Gerçek afet durumları
+
+Gerçek bir acil durumda oyun kullanılacak bir müdahale aracı gibi sunulmamalıdır.
+
+Kullanıcılar resmî uyarıları ve yetkili ekiplerin talimatlarını takip etmelidir.
+
+## Q3. Kişisel veri güvenliği
+
+İlk sürümde:
+
+- Kullanıcı hesabı zorunlu değil.
+- Gerçek ad soyad zorunlu değil.
+- Telefon numarası toplanmaz.
+- Konum izni istenmez.
+- Gerçek ev adresi istenmez.
+- Sağlık bilgisi istenmez.
+- Gereksiz analitik veya takip çerezi kullanılmaz.
+
+Sonraki sürümlerde hesap, öğrenci analitiği veya yapay zekâ entegrasyonu eklenirse KVKK ve çocuklara yönelik veri koruma gereklilikleri ayrıca değerlendirilmelidir.
+
+## Q4. Çocuk dostu tasarım
+
+Oyunda:
+
+- Ölüm sayacı
+- Travmatik yaralanma görselleri
+- Gerçek mağdur fotoğrafları
+- Çocukları suçlayan ifadeler
+- Sınıf önünde bireysel başarısızlığı ifşa eden sıralamalar
+
+bulunmamalıdır.
+
+Oyuncu yanlış karar verdiğinde öğrenme fırsatı elde etmelidir.
+
+---
+
+# BÖLÜM R — OYUN TESTLERİ
+
+## R1. Fonksiyonel testler
+
+1. Oyun başlıyor mu?
+2. Harita görüntüleniyor mu?
+3. Kamera çalışıyor mu?
+4. Nesneler seçilebiliyor mu?
+5. Görevler açılıyor mu?
+6. Kararlar kaydediliyor mu?
+7. Puanlar doğru hesaplanıyor mu?
+8. Olaylar beklenen sırayla gerçekleşiyor mu?
+9. Kapanan yollar kullanılamıyor mu?
+10. Güvenli rota yoksa sistem bunu gösteriyor mu?
+11. Oyun ilerlemesi kaydediliyor mu?
+12. Sayfa yenilenince ilerleme korunuyor mu?
+13. Bölüm tekrar başlatılabiliyor mu?
+14. Sıfırlama işlemi çalışıyor mu?
+15. Ses kontrolü çalışıyor mu?
+
+## R2. Eğitsel doğruluk testleri
+
+1. Tehlikeli davranış doğru olarak ödüllendirilmiyor mu?
+2. Birden fazla güvenli karar varsa hepsi kabul ediliyor mu?
+3. Geri bildirimler tutarlı mı?
+4. Güncel olmayan resmî bilgi doğruymuş gibi gösteriliyor mu?
+5. Öğrenci riskli bir alana yönlendiriliyor mu?
+6. Fiziksel risk göstergeleri gerçek tahmin gibi sunuluyor mu?
+7. Senaryolardaki bilgiler kaynaklara bağlanmış mı?
+8. Alan uzmanı incelemesi yapılmış mı?
+
+## R3. Kullanılabilirlik testleri
+
+- 11–14 yaş grubu
+- 15–18 yaş grubu
+- Öğretmen
+- Düşük donanımlı bilgisayar
+- Mobil telefon
+- Klavye kullanıcısı
+- Ses kapalı kullanım
+- Yüksek kontrast modu
+
+Test grubunda öğrencinin görevleri açıklama almadan anlayıp anlamadığı ölçülmelidir.
+
+---
+
+# BÖLÜM S — GELİŞTİRME TAKVİMİ
+
+Önerilen sekiz haftalık uygulama planı, küçük bir geliştirme ekibi için hedef takvimdir. Kesin süre taahhüdü değildir.
+
+| Hafta | Çalışma                                                           |
+| ----- | ----------------------------------------------------------------- |
+| 1     | Oyun tasarımının kesinleştirilmesi, senaryolar, içerik incelemesi |
+| 2     | React/Three.js altyapısı, kamera ve harita                        |
+| 3     | Nesne etkileşimi, görev motoru ve kayıt                           |
+| 4     | Hazırlık ve risk tespit görevleri                                 |
+| 5     | Sel/heyelan olayları ve yol bulma                                 |
+| 6     | Puanlama, final raporu, öğretmen modu                             |
+| 7     | Mobil uyum, erişilebilirlik, performans                           |
+| 8     | Pilot test, hata giderme, yayınlama                               |
+
+## S1. Öncelikli MVP
+
+İlk oynanabilir sürümde bütün özellikler bulunmak zorunda değildir.
+
+**Olmazsa olmazlar:**
+
+- Açılış ekranı
+- Çalışan izometrik mahalle
+- Temel kamera kontrolleri
+- En az 10 etkileşimli nesne
+- Risk inceleme görevi
+- Bir hazırlık görevi
+- Resmî uyarı değerlendirme görevi
+- Bir sel ve kapalı yol senaryosu
+- Karar motoru
+- Puanlama
+- Yerel kayıt
+- Final geri bildirimi
+- Hazırlık kontrol listesi
+
+Bu sürüm 20–30 dakikalık tamamlanabilir bir oyun sunmalıdır.
+
+## S2. İkinci sürüm
+
+- Dokuz bölümün tamamı
+- Gelişmiş yağmur ve çevre efektleri
+- Daha fazla karakter
+- Erişilebilir rota görevleri
+- Öğretmen analizleri
+- Ön test/son test
+- Çoklu senaryo
+- Gelişmiş başarı rozetleri
+
+## S3. Üçüncü sürüm
+
+- Yeni afet türleri
+- Farklı kurgusal şehirler
+- Uyarlanabilir zorluk
+- Çok dilli içerik
+- Onaylı içerik havuzuna bağlı açıklama asistanı
+- Sınıf içi ortak etkinlik modu
+
+---
+
+# BÖLÜM T — YAYINLAMA
+
+## T1. Teknik yayın
+
+Oyun üretim sürümü oluşturulduktan sonra statik web barındırma hizmetine yüklenebilir.
+
+Gerekli sayfalar:
+
+- Oyun
+- Hakkında
+- Kullanım kılavuzu
+- Veri ve gizlilik açıklaması
+- Eğitim kaynakları
+- İletişim
+
+## T2. Proje sunumu
+
+Tanıtım videosu önerisi:
+
+0–10 saniye: Sakin Yamaçdere Mahallesi.
+
+10–25 saniye: Oyuncunun hazırlık görevleri.
+
+25–40 saniye: Meteorolojik uyarı ve yağmur.
+
+40–55 saniye: Köprünün kapanması ve güvenli rota kararı.
+
+55–70 saniye: Mahalle ihtiyaçlarının değerlendirilmesi.
+
+70–85 saniye: Öğrenci başarı raporu ve gerçek yaşam kontrol listesi.
+
+85–90 saniye: Proje adı ve temel mesaj.
+
+**Kapanış sloganı:**
+
+"Afetleri durduramayabiliriz. Ama hazırlıksız yakalanmamak için bugünden harekete geçebiliriz."
+
+---
+
+# BÖLÜM U — BAŞARI ÖLÇÜTLERİ
+
+Proje tamamlandığında aşağıdaki hedefler değerlendirilmelidir:
+
+1. Oyuncu bütün temel görevleri tamamlayabiliyor.
+2. En az bir karar, sonraki bir görevin koşullarını değiştiriyor.
+3. Riskli yollar oyun tarafından yanlışlıkla güvenli olarak önerilmiyor.
+4. Her kritik güvenlik kararında açıklayıcı geri bildirim var.
+5. Oyun mobil ve masaüstünde kullanılabiliyor.
+6. Oyun kişisel hesap olmadan oynanabiliyor.
+7. Öğretmen ön test ve son test uygulayabiliyor.
+8. Oyuncu hazırlık kontrol listesi oluşturabiliyor.
+9. Oyun gerçek zamanlı afet sistemi olarak tanıtılmıyor.
+10. İçerikler uzman ve kullanıcı değerlendirmesinden geçiriliyor.
+
+**Temel proje ilkesi:**
+
+Başarılı bir afet eğitimi oyunu, oyuncunun yalnızca sanal mahallede daha yüksek puan almasını değil, gerçek hayatta güvenli hazırlık yapabilecek bilgi ve farkındalık geliştirmesini hedeflemelidir.
+
+## 4. Görsel arayüzün yerleşimi
+
+Oyunun gerçek anlamda bir strateji/simülasyon oyunu gibi görünmesi için ekran yapısını şu şekilde kurgulamanı öneriyorum:
+
+AFET 72
+
+Yamaçdere • Bölüm 4
+
+T + 02:30
+
+AKTİF GÖREV
+
+Güvenli yolu belirle
+
+2/4 görev tamamlandı
+
+Köprü durumunu incele
+
+Alternatif yolu belirle
+
+DURUM
+
+Yağış
+
+Şiddetli
+
+Köprü
+
+Kapalı
+
+Görev puanı
+
+## 75
+
+Yeni olay: Köprü kapatıldı
+
+Alternatif güvenli güzergâhı değerlendir.
+
+Bu, oyun HUD'ının işlevsel yerleşim taslağıdır; son grafik tasarımda 3D sahne, animasyonlar ve gerçek görev etkileşimleriyle geliştirilecektir.
+
+## 5. Oyunun teknik olarak geliştirilme sırası
+
+En doğru yöntem, önce görsellikten çok oynanabilir bir çekirdek oluşturmaktır.
+
+Aşama 1 — Gerçekten çalışan mahalle
+
+İzometrik harita, yollar, binalar, dere, kamera hareketleri ve tıklanabilir nesneler. Henüz afet animasyonlarına gerek yok.
+
+Aşama 2 — Oynanabilir görevler
+
+Riskleri tespit etme, afet çantası hazırlama, karar verme, sonuçları görme ve puan kazanma.
+
+Aşama 3 — Dinamik afet senaryosu
+
+Yağmur, dere risk alanları, köprü kapanması, heyelan belirtileri, güvenli alternatif rotalar ve görevler arası sonuç ilişkileri.
+
+Aşama 4 — Eğitim ve toplumsal fayda
+
+Ön test, son test, öğretmen modu, bireysel hazırlık kontrol listesi, başarı raporu ve kullanıcı testleri.
+
+## 6. Oyunu geliştirecek yapay zekâ aracına verilecek ana komut
+
+Bu komutu Google AI Studio, Cursor veya Antigravity gibi araçlarda başlangıç komutu olarak kullanabilirsin. Yukarıdaki GDD'yi de aynı araca proje referansı olarak vermelisin.
+
+Sen kıdemli bir oyun geliştiricisi, yazılım mimarı, 3D web geliştiricisi, kullanıcı deneyimi tasarımcısı ve eğitsel oyun tasarım uzmanısın.
+
+Benim için "AFET 72 – Mahalleni Kurtar!" adında, HTML5 tabanlı, tarayıcı üzerinde çalışan, Türkçe, izometrik 3D, toplumsal fayda amaçlı, profesyonel görünümlü bir afet hazırlık ve karar verme oyunu geliştireceksin.
+
+Sana ayrıca ayrıntılı Oyun Tasarım Dokümanı (GDD) vereceğim. Bu belgeyi birincil işlevsel şartname olarak kullan.
+
+## TEKNİK TEMEL
+
+React, TypeScript, Vite, Three.js ve modern CSS kullan.
+
+Projeyi bileşen tabanlı, modüler, test edilebilir ve sürdürülebilir şekilde geliştir.
+
+İlk sürümde hiçbir ücretli API, kullanıcı hesabı veya sunucu bağlantısı zorunlu olmasın.
+
+Türkçe karakterleri doğru göster. Masaüstü ve mobil uyumu sağla. Yerel kayıt sistemini oluştur.
+
+## ÖNEMLİ OYUN TASARIMI
+
+Bu proje bir test uygulaması veya tıklamalı sunum olmayacak. Gerçek bir strateji ve simülasyon oyunu hissi vermeli.
+
+Oyuncu mahalle haritasını görebilmeli, kamerayı hareket ettirebilmeli, nesneleri seçebilmeli, görev yapabilmeli ve kararlarının sonuçlarını izleyebilmeli.
+
+Dünya düşük poligonlu fakat kaliteli ve tutarlı 3D görsellerle hazırlanmalı.
+
+Rastgele, işlevsiz butonlar veya yalnızca vitrin amacıyla oluşturulmuş sahte modüller bulunmasın.
+
+## HARİTA
+
+Yamaçdere adında tamamen kurgusal bir mahalle oluştur.
+
+40×30 karelik izometrik harita kullan.
+
+Haritada en az şu unsurlar olsun:
+
+- Dere ve iki köprü
+- Yamaç ve ağaçlık alan
+- 30 konut grubu
+- Okul
+- Sağlık merkezi
+- Market
+- Eczane
+- Ana yollar
+- Ara sokaklar
+- İki kurgusal toplanma alanı
+- Risk işaretleri
+- Görev nesneleri
+
+Bütün önemli nesneler seçilebilir olmalı. Nesne seçildiğinde ilgili bilgi paneli açılmalı.
+
+## KAMERA
+
+Ortografik izometrik kamera kullan.
+
+Yakınlaştırma, uzaklaştırma, kaydırma ve kontrollü döndürme özellikleri ekle.
+
+Kameranın haritanın dışına çıkmasını engelle.
+
+Mobil cihazlarda dokunmatik kontrol ekle.
+
+## OYUNUN TEMEL SİSTEMİ
+
+Bir görev motoru oluştur.
+
+Görevlerin başlama, ilerleme, bitiş ve yeniden başlama koşullarını tanımla.
+
+Bir olay motoru oluştur.
+
+Kurgusal yağış, yol kapanması, heyelan belirtisi ve ihtiyaç bildirimi olaylarını yönet.
+
+Bir karar motoru oluştur.
+
+Oyuncunun seçimini değerlendir, gerekçeli geri bildirim ver, ilerlemeyi ve puanları güncelle.
+
+Bir yol bulma sistemi oluştur.
+
+Kapalı veya tehlikeli yolları kullanılamaz olarak işaretle. Güvenliği doğrulanmamış güzergâhları güvenli rota olarak sunma.
+
+## İLK OYNANABİLİR SÜRÜM
+
+Önce şu beş görevi eksiksiz çalıştır:
+
+1. Mahalle keşfi ve kamera öğretimi.
+2. Riskli nesneleri tespit etme.
+3. Afet hazırlık malzemelerini sürükle-bırak ile seçme.
+4. Resmî uyarı ve sel nedeniyle kapanan köprü hakkında güvenli karar verme.
+5. Oyun sonu değerlendirme ve gerçek yaşam hazırlık kontrol listesi.
+
+Her görev için:
+
+- Başlangıç
+- Etkileşim
+- Kararlar
+- Doğru/güvenli sonuçlar
+- Hatalı seçimlerin açıklaması
+- Görev tamamlanması
+- Puanlama
+- Sonraki göreve geçiş
+
+gerçekten çalışsın.
+
+## GÖRSELLER
+
+Modern strateji oyunları kalitesine yaklaşan, fakat düşük donanımlarda da çalışabilecek bir görsel dil kullan.
+
+Renkleri, tipografiyi, animasyonları ve panelleri tutarlı tasarla.
+
+İşlevsiz süslemeler yerine anlamlı oyun göstergeleri kullan.
+
+## GÜVENLİK
+
+AFAD ve MGM kaynaklarıyla uyumlu, uzman kontrolüne açık bir senaryo içerik sistemi tasarla.
+
+Oyun gerçek zamanlı afet tahmini yapıyormuş gibi davranmasın.
+
+Oyuncuyu sel suyunda yürümeye, kapalı yollardan geçmeye, tehlikeli yamaçlara yaklaşmaya veya profesyonel kurtarma müdahalesi yapmaya yönlendirme.
+
+Gerçek dünyaya yönelik kesin güvenlik önerilerini dinamik ve denetimsiz yapay zekâ çıktılarıyla üretme.
+
+## KAYIT
+
+Tarayıcı üzerinde otomatik kayıt kullan.
+
+Görev tamamlandığında, önemli karar sonrasında ve bölüm geçişlerinde ilerlemeyi koru.
+
+## TESTLER
+
+Bütün temel oyun kuralları için testler hazırla.
+
+Özellikle şunları kontrol et:
+
+- Yanlış puan hesaplanmaması
+- Kapanan yolların rotaya dahil edilmemesi
+- İlerlemenin kaybolmaması
+- Görevlerin kilitlenmemesi
+- Mobil arayüzde taşma olmaması
+- Klavye ile ana işlemlerin gerçekleştirilebilmesi
+
+## GELİŞTİRME YÖNTEMİ
+
+Bütün oyunu tek seferde göstermelik biçimde oluşturmaya çalışma.
+
+Önce gerçek bir proje yapısı kur.
+
+İlk olarak çalışan harita, kamera ve nesne seçim sistemini tamamla.
+
+Ardından görev motorunu ekle.
+
+Sonra ilk beş oynanabilir görevi tamamla.
+
+Her aşamada derlenebilen, test edilebilen ve oynanabilen kod üret.
+
+Mevcut çalışan özellikleri bozmadan ilerle.
+
+Kullanılan dosyaları, çalıştırma komutlarını ve tamamlanan özellikleri açıkça belirt.
+
+Hiçbir özelliği gerçekten geliştirmeden "tamamlandı" olarak raporlama.
+
+## BEKLENEN İLK TESLİM
+
+1. Çalışan proje dosya yapısı.
+2. Kurulum ve çalıştırma komutları.
+3. Açılış ekranı.
+4. İzometrik 3D mahalle.
+5. Harita kamerası.
+6. En az 10 tıklanabilir oyun nesnesi.
+7. Çalışan ilk keşif görevi.
+8. Otomatik kayıt.
+9. Basit görev/olay/karar altyapısı.
+10. Kodların açıklaması ve sonraki geliştirme adımları.
+
+İlk teslimi sağlamlaştırdıktan sonra GDD'deki diğer modülleri sırayla geliştir.
+
+## 7. Resmî kaynaklar ve doğrulama
+
+Oyunun afet güvenliği içerikleri geliştirme ve pilot uygulama öncesinde uzman incelemesinden geçirilmelidir. Aşağıdaki kaynaklar tasarımın temel referanslarıdır:
+
+- [AFAD — Heyelan Hazırlık Rehberi](https://hazirim.gov.tr/tr/afetler/heyelan?utm_source=chatgpt.com)
+- [AFAD — Şiddetli Yağış ve Selden Korunma](https://mugla.afad.gov.tr/siddetli-yagis-sel?utm_source=chatgpt.com)
+- [MGM — MeteoUYARI Renk Kodları](https://www.mgm.gov.tr/meteouyari/meteouyari-nedir.aspx?utm_source=chatgpt.com)
+- [AFAD — Türkiye Afet Risk Azaltma Planı](https://afad.gov.tr/turkiye-afet-risk-azaltma-plani-tarap?utm_source=chatgpt.com)
+- [Rize AFAD — Afet ve Acil Durum Çantası](https://rize.afad.gov.tr/afet-ve-acil-durum-cantasi?utm_source=chatgpt.com)
+- [Three.js — Resmî Kurulum Dokümantasyonu](https://threejs.org/manual/pages/installation.html?utm_source=chatgpt.com)
+
+Öğrenci verileri için KVKK'nın çocuklara yönelik uygulamalardaki kişisel veri koruma rehberleri dikkate alınmalıdır.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://kvkk.gov.tr\&sz=32)
+
+KVKK+1
+
+
+
+## 8. Projeyi özgünleştirecek en önemli karar
+
+Bu oyunun yalnızca afetleri anlatması yeterli olmayacak. Asıl özgünlük, üç unsuru birlikte gerçekleştirmesinde olacak:
+
+Birincisi, kararlar birbirine bağlı olacak. Oyuncunun ilk bölümde tespit etmediği risk, sonraki senaryoda karşısına yeniden çıkacak. Hazırladığı plan, ilerleyen görevlerin seçeneklerini etkileyecek.
+
+İkincisi, öğrenci gerçek bir problem üzerinde sistem düşüncesi geliştirecek. Sel riskini azaltmak için yalnızca derenin durumunu değil, ulaşımı, iletişimi, bireysel hazırlığı ve farklı ihtiyaçları birlikte değerlendirecek.
+
+Üçüncüsü, sonuç sanal ortamla sınırlı kalmayacak. Oyunun sonunda hazırlık kontrol listesi oluşturulacak ve öğrencinin gerçekten hazırlık davranışı gösterip göstermediği, gönüllü ve uygun yöntemlerle takip edilebilecek.
+
+Bu son özellik için oyun puanları, ön test–son test sonuçları ve gerçek hazırlık davranışları ayrı ayrı ölçülmeli. Böylece proje, iddia edilen eğitimsel ve toplumsal faydayı deneysel olarak sınamaya uygun hâle gelir.
+
+Projenin ana fikrini tek cümleyle şöyle ifade edebiliriz:
+
+“AFET 72, öğrencilerin afet öncesinde hazırlık yapmayı, afet sırasında güvenli karar vermeyi ve afet sonrasında dayanışmayı öğrendiği; kararlarının sonuçlarını deneyimlediği, gerçek yaşam hazırlığına dönüşmeyi hedefleyen senaryo tabanlı bir eğitim oyunudur.”
